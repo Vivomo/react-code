@@ -12,8 +12,13 @@ paths.forEach((pathStr) => {
     countWords(wordsCount, words);
 });
 
-let wordsOrderArr = Object.entries(wordsCount).sort((a, b) => b[1] - a[1]);
+let wordsList = Object.entries(wordsCount);
 
-console.log(wordsOrderArr);
+let wordsDefaultOrderList = wordsList.sort((a, b) => a[0].localeCompare(b[0]));
+fs.writeFileSync('./words/all-default.txt', wordsDefaultOrderList.join('\n'));
+
+let wordsCountOrderList = wordsList.sort((a, b) => b[1] - a[1]);
+fs.writeFileSync('./words/all-order.txt', wordsCountOrderList.join('\n'));
+
 console.log(Object.keys(wordsCount).length);
 
