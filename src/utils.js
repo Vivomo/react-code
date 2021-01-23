@@ -5,7 +5,7 @@ const path = require('path');
  * @param root 路径
  * @return []
  */
-function getFilesByPath(root){
+let getFilesByPath = (root) => {
     let result = [];
     let files = fs.readdirSync(root);
     files.forEach((file) => {
@@ -17,8 +17,25 @@ function getFilesByPath(root){
         }
     });
     return result;
-}
+};
+
+/**
+ * 统计单词
+ * @param wordCount
+ * @param words
+ */
+let countWords = (wordCount, words) => {
+    for (let word of words) {
+        if (wordCount[word]) {
+            wordCount[word]++;
+        } else {
+            wordCount[word] = 1;
+        }
+    }
+};
+
 
 Object.assign(exports, {
     getFilesByPath,
+    countWords,
 });
