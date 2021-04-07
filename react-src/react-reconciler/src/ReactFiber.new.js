@@ -179,17 +179,7 @@ function FiberNode(
     this.treeBaseDuration = 0;
   }
 
-  if (__DEV__) {
-    // This isn't directly used but is handy for debugging internals:
-    this._debugID = debugCounter++;
-    this._debugSource = null;
-    this._debugOwner = null;
-    this._debugNeedsRemount = false;
-    this._debugHookTypes = null;
-    if (!hasBadMapPolyfill && typeof Object.preventExtensions === 'function') {
-      Object.preventExtensions(this);
-    }
-  }
+  // r dev
 }
 
 // This is a constructor function, rather than a POJO constructor, still
@@ -460,13 +450,9 @@ export function createFiberFromTypeAndProps(
   if (typeof type === 'function') {
     if (shouldConstruct(type)) {
       fiberTag = ClassComponent;
-      if (__DEV__) {
-        resolvedType = resolveClassForHotReloading(resolvedType);
-      }
+      // r dev
     } else {
-      if (__DEV__) {
-        resolvedType = resolveFunctionForHotReloading(resolvedType);
-      }
+        // r dev
     }
   } else if (typeof type === 'string') {
     fiberTag = HostComponent;
@@ -538,32 +524,7 @@ export function createFiberFromTypeAndProps(
               break;
           }
         }
-        let info = '';
-        if (__DEV__) {
-          if (
-            type === undefined ||
-            (typeof type === 'object' &&
-              type !== null &&
-              Object.keys(type).length === 0)
-          ) {
-            info +=
-              ' You likely forgot to export your component from the file ' +
-              "it's defined in, or you might have mixed up default and " +
-              'named imports.';
-          }
-          const ownerName = owner ? getComponentName(owner.type) : null;
-          if (ownerName) {
-            info += '\n\nCheck the render method of `' + ownerName + '`.';
-          }
-        }
-        invariant(
-          false,
-          'Element type is invalid: expected a string (for built-in ' +
-            'components) or a class/function (for composite components) ' +
-            'but got: %s.%s',
-          type == null ? type : typeof type,
-          info,
-        );
+          // r dev
       }
     }
   }

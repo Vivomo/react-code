@@ -121,33 +121,11 @@ function legacyCreateRootFromDOMContainer(
     let warned = false;
     let rootSibling;
     while ((rootSibling = container.lastChild)) {
-      if (__DEV__) {
-        if (
-          !warned &&
-          rootSibling.nodeType === ELEMENT_NODE &&
-          (rootSibling: any).hasAttribute(ROOT_ATTRIBUTE_NAME)
-        ) {
-          warned = true;
-          console.error(
-            'render(): Target node has markup rendered by React, but there ' +
-              'are unrelated nodes as well. This is most commonly caused by ' +
-              'white-space inserted around server-rendered markup.',
-          );
-        }
-      }
+      // r dev
       container.removeChild(rootSibling);
     }
   }
-  if (__DEV__) {
-    if (shouldHydrate && !forceHydrate && !warnedAboutHydrateAPI) {
-      warnedAboutHydrateAPI = true;
-      console.warn(
-        'render(): Calling ReactDOM.render() to hydrate server-rendered markup ' +
-          'will stop working in React v18. Replace the ReactDOM.render() call ' +
-          'with ReactDOM.hydrate() if you want React to attach to the server HTML.',
-      );
-    }
-  }
+  // r dev
 
   return createLegacyRoot(
     container,
@@ -159,18 +137,6 @@ function legacyCreateRootFromDOMContainer(
   );
 }
 
-function warnOnInvalidCallback(callback: mixed, callerName: string): void {
-  if (__DEV__) {
-    if (callback !== null && typeof callback !== 'function') {
-      console.error(
-        '%s(...): Expected the last optional `callback` argument to be a ' +
-          'function. Instead received: %s.',
-        callerName,
-        callback,
-      );
-    }
-  }
-}
 
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>,
@@ -179,10 +145,7 @@ function legacyRenderSubtreeIntoContainer(
   forceHydrate: boolean,
   callback: ?Function,
 ) {
-  if (__DEV__) {
-    topLevelUpdateWarnings(container);
-    warnOnInvalidCallback(callback === undefined ? null : callback, 'render');
-  }
+  // r dev
 
   // TODO: Without `any` type, Flow says "Property cannot be accessed on any
   // member of intersection type." Whyyyyyy.
@@ -289,22 +252,8 @@ export function render(
   container: Container,
   callback: ?Function,
 ) {
-  invariant(
-    isValidContainer(container),
-    'Target container is not a DOM element.',
-  );
-  if (__DEV__) {
-    const isModernRoot =
-      isContainerMarkedAsRoot(container) &&
-      container._reactRootContainer === undefined;
-    if (isModernRoot) {
-      console.error(
-        'You are calling ReactDOM.render() on a container that was previously ' +
-          'passed to ReactDOM.createRoot(). This is not supported. ' +
-          'Did you mean to call root.render(element)?',
-      );
-    }
-  }
+  // r dev
+
   return legacyRenderSubtreeIntoContainer(
     null,
     element,
