@@ -35,9 +35,11 @@ current: Fiber
 每一个ReactElement对应一个Fiber对象
 记录节点各种状态信息 如State, hooks
 串联整个应用形成树结构
+Fiber的return, child, sibling
 
 
 ## 借鉴
 
 * 重构
 * 匠心
+* 优化思路
